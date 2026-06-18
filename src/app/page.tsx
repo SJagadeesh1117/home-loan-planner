@@ -113,12 +113,14 @@ function MonthYearSelector({ date, onChange, minYear = 2020, maxYear = 2060, cla
   const year = d.getFullYear();
   const years = Array.from({length: maxYear - minYear + 1}, (_, i) => minYear + i);
   
-  const handleMonthChange = (m: string) => {
+  const handleMonthChange = (m: string | null) => {
+    if (!m) return;
     const newDate = new Date(d);
     newDate.setMonth(Number(m));
     onChange(newDate);
   };
-  const handleYearChange = (y: string) => {
+  const handleYearChange = (y: string | null) => {
+    if (!y) return;
     const newDate = new Date(d);
     newDate.setFullYear(Number(y));
     onChange(newDate);
