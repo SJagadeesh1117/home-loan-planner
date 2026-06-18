@@ -336,7 +336,7 @@ export default function HomeLoanPlanner() {
                       <Label>Type</Label>
                       <Select 
                         value={stepUp.type} 
-                        onValueChange={(v: 'percentage'|'fixed') => setStepUp({...stepUp, type: v})}
+                        onValueChange={(v: any) => v && setStepUp({...stepUp, type: v})}
                       >
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
@@ -392,7 +392,7 @@ export default function HomeLoanPlanner() {
                         <Label className="text-xs">Type</Label>
                         <Select 
                           value={p.type} 
-                          onValueChange={(v: 'one-time'|'recurring') => updatePrepayment(p.id, { type: v })}
+                          onValueChange={(v: any) => v && updatePrepayment(p.id, { type: v })}
                         >
                           <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -430,7 +430,7 @@ export default function HomeLoanPlanner() {
                           <Label className="text-xs">Frequency</Label>
                           <Select 
                             value={p.recurringFrequency || 'yearly'} 
-                            onValueChange={(v: any) => updatePrepayment(p.id, { recurringFrequency: v })}
+                            onValueChange={(v: any) => v && updatePrepayment(p.id, { recurringFrequency: v })}
                           >
                             <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                             <SelectContent>
@@ -445,7 +445,7 @@ export default function HomeLoanPlanner() {
                           <Label className="text-xs">StepUp Type</Label>
                           <Select 
                             value={p.stepUpType || 'percentage'} 
-                            onValueChange={(v: any) => updatePrepayment(p.id, { stepUpType: v })}
+                            onValueChange={(v: any) => v && updatePrepayment(p.id, { stepUpType: v })}
                           >
                             <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                             <SelectContent>
@@ -551,7 +551,7 @@ export default function HomeLoanPlanner() {
                           <CartesianGrid strokeDasharray="3 3" vertical={false} />
                           <XAxis dataKey="date" minTickGap={30} tick={{fontSize: 12}} />
                           <YAxis tickFormatter={(val) => `₹${(val/100000).toFixed(0)}L`} tick={{fontSize: 12}} />
-                          <RechartsTooltip formatter={(val: number) => formatCurrency(val)} />
+                          <RechartsTooltip formatter={(val: any) => (val !== undefined && val !== null) ? formatCurrency(Number(val)) : '₹0'} />
                           <Legend />
                           <Area type="monotone" name="Revised Balance" dataKey="revisedBalance" stroke="#2563eb" fillOpacity={1} fill="url(#colorRevised)" />
                           <Area type="monotone" name="Original Balance" dataKey="originalBalance" stroke="#94a3b8" strokeDasharray="5 5" fillOpacity={1} fill="url(#colorOrig)" />
@@ -567,7 +567,7 @@ export default function HomeLoanPlanner() {
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <XAxis dataKey="year" tick={{fontSize: 12}} />
                             <YAxis tickFormatter={(val) => `₹${(val/100000).toFixed(0)}L`} tick={{fontSize: 12}} />
-                            <RechartsTooltip formatter={(val: number) => formatCurrency(val)} />
+                            <RechartsTooltip formatter={(val: any) => formatCurrency(Number(val))} />
                             <Legend />
                             <Bar dataKey="emi" name="Total EMI Paid" stackId="a" fill="#34d399" />
                             <Bar dataKey="prepayment" name="Prepayments" stackId="a" fill="#059669" radius={[4, 4, 0, 0]} />
